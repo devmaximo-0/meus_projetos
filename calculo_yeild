@@ -1,0 +1,22 @@
+lista = {}
+while True:
+    print('>>>> Seja bem vindo(a) ao Calculo de Yeild <<<<')
+    try: # utilizei o Try e o Except para que meu programa não quebre caso dê um erro, nesse caso de "ValueError"
+        dia_d = float(input('que dia é hoje: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+        jag = int(input('qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+        linha = (input('qual é a liha: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+        Prime_fail = int(input(f'digite o total prime fail da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+        Prime_Handle = int(input(f'digite o Prime Handle da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+
+        yieldps = (Prime_fail / Prime_Handle) - 1 * 100
+
+    except:
+        if ValueError:
+            print('tente novamente, siga o passo a passo!')
+            continue
+
+    print(f'o seu yield é: {yieldps:.2f}')
+    sair = input('deseja sair ? responda sim ou não: ').lower()
+    if sair == 'sim':
+        print('Até mais, volte sempre!!')
+        break 
