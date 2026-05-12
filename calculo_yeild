@@ -1,21 +1,40 @@
-lista = {}
+alnol = ['Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8', 'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16'] # allowed number of lines
 while True:
-    print('>>>> Seja bem vindo(a) ao Calculo de Yeild <<<<')
+    print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
+
     try: # utilizei o Try e o Except para que meu programa não quebre caso dê um erro, nesse caso de "ValueError"
-        dia_d = float(input('que dia é hoje: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-        jag = int(input('qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-        linha = (input('qual é a liha: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-        Prime_fail = int(input(f'digite o total prime fail da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-        Prime_Handle = int(input(f'digite o Prime Handle da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+            print('PASSO A PASSO 1...Responda o dia com >>> Segunda, Terça, Quarta, Quinta ou Sexta.')
 
-        yieldps = (Prime_fail / Prime_Handle) - 1 * 100
+            dia_d = (input('Que dia é hoje: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+            jag = int(input('Qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
 
-    except:
-        if ValueError:
-            print('tente novamente, siga o passo a passo!')
+            if jag == 123:
+                  print('Esse jag não existe... tente novamente! ')
+                  continue
+            
+            linha = (input('Qual é a linha do backend deseja: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+
+            if linha not in alnol:
+                print('Responda como no " PASSO A PASSO 3 "')
+                continue
+
+            Prime_fail = int(input(f'Digite o total prime fail da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+            
+            Prime_Handle = int(input(f'Digite a estação do prime handle que foi mais ultilizada, da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+             
+            if Prime_Handle == 0:
+                    print("Prime Handle não pode ser zero.")
+                    continue
+
+            firsttimeyield =  (1- (Prime_fail / Prime_Handle)) * 100
+
+            print(f'O seu FTY é: {firsttimeyield:.2f}')
+                    
+    except ValueError as erro:
+            print('Erro de valor:', erro)
             continue
 
-    print(f'o seu yield é: {yieldps:.2f}')
+
     sair = input('deseja sair ? responda sim ou não: ').lower()
     if sair == 'sim':
         print('Até mais, volte sempre!!')
