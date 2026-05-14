@@ -1,3 +1,6 @@
+import json
+
+lista = []
 alnol = ['Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8', 'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16'] # allowed number of lines
 while True:
     print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
@@ -6,18 +9,24 @@ while True:
             print('PASSO A PASSO 1...Responda o dia com >>> Segunda, Terça, Quarta, Quinta ou Sexta.')
 
             dia_d = (input('Que dia é hoje: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-            jag = int(input('Qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
-
-            if jag == 123:
-                  print('Esse jag não existe... tente novamente! ')
+            if dia_d == '':
+                  print('campo vazio, por favor digite algo!!!')
                   continue
+            jag = (input('Qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+
+            if jag.isdigit() and len(jag) == 6:  # converte para inteiro só depois da validação
+                  jag = int(jag)
+
+            else:
+                  print('digite o número do jag corretamente, ele deve contrer entre 3 a 6 digitos.')
+                  continue
+
             
-            linha = (input('Qual é a linha do backend deseja: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+            linha = (input('Qual é a linha do backend deseja: ')).capitalize() # aqui foi feito o input para a capitalização de dados para o calculo.
 
             if linha not in alnol:
                 print('Responda como no " PASSO A PASSO 3 "')
                 continue
-
             Prime_fail = int(input(f'Digite o total prime fail da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
             
             Prime_Handle = int(input(f'Digite a estação do prime handle que foi mais ultilizada, da linha ({linha}): ')) # aqui foi feito o input para a capitalização de dados para o calculo.
@@ -36,6 +45,10 @@ while True:
 
 
     sair = input('deseja sair ? responda sim ou não: ').lower()
-    if sair == 'sim':
-        print('Até mais, volte sempre!!')
+    if sair =='não':
+          lista.append([dia_d])
+
+    elif sair == 'sim':
+        print(f'Até mais, volte sempre!! {lista}')
         break 
+    
