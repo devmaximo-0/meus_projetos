@@ -1,6 +1,6 @@
 import json
 
-lista = []
+dicionario = {}
 alnol = ['Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8', 'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16'] # allowed number of lines
 while True:
     print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
@@ -12,13 +12,13 @@ while True:
             if dia_d == '':
                   print('campo vazio, por favor digite algo!!!')
                   continue
-            jag = (input('Qual é seu jag: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
+            workday = (input('Qual é seu workday: ')) # aqui foi feito o input para a capitalização de dados para o calculo.
 
-            if jag.isdigit() and len(jag) == 6:  # converte para inteiro só depois da validação
-                  jag = int(jag)
+            if workday.isdigit() and len(workday) == 6:  # converte para inteiro só depois da validação
+                  workday = int(workday)
 
             else:
-                  print('digite o número do jag corretamente, ele deve contrer entre 3 a 6 digitos.')
+                  print('digite o número do workday corretamente, ele deve conter 6 digitos.')
                   continue
 
             
@@ -46,9 +46,9 @@ while True:
 
     sair = input('deseja sair ? responda sim ou não: ').lower()
     if sair =='não':
-          lista.append([dia_d])
-
+          continue
     elif sair == 'sim':
-        print(f'Até mais, volte sempre!! {lista}')
-        break 
+         dicionario.update({'dia_d': dia_d, 'workday': workday, 'linha': linha, 'Prime_fail': Prime_fail, 'Prime_Handle': Prime_Handle, 'firsttimeyield': firsttimeyield}) # o lista.update trasfere os resultados para um dicionario vázio chamado de dicionario.
+         print(f'Até mais, volte sempre!! seus dados: {dicionario}')
+         break 
     
