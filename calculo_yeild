@@ -1,6 +1,17 @@
+import os
 import json
 
 dicionario = {}
+
+diretorio = 'minha_pasta'
+nome_arquivo = 'resultado.json'
+
+caminho_completo = os.path.join(diretorio, nome_arquivo)
+
+os.makedirs(diretorio, exist_ok=True)
+
+with open(caminho_completo, 'w', encoding='utf-8')as arquivo:
+      json.dump(dicionario, arquivo, indent=4)
 alnol = ['Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8', 'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16'] # allowed number of lines
 while True:
     print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
