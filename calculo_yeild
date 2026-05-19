@@ -1,8 +1,10 @@
-import os
 import json
+import os
 
-dicionario = {}
-dicionario2 = {}
+allowed_lines = [
+    'Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8',
+    'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16'
+]
 
 diretorio = 'minha_pasta'
 nome_arquivo = 'resultado.json'
@@ -10,75 +12,75 @@ caminho_completo = os.path.join(diretorio, nome_arquivo)
 
 os.makedirs(diretorio, exist_ok=True)
 
-registro = []
-
-allowed_lines = ['Be1', 'Be2', 'Be3', 'Be4', 'Be5', 'Be6', 'Be7', 'Be8', 'Be9', 'Be10', 'Be11', 'Be12', 'Be13', 'Be14', 'Be15', 'Be16']  # allowed number of lines
+registros = []
+if os.path.exists(caminho_completo):
+    try:
+        with open(caminho_completo, 'r', encoding='utf-8') as arquivo:
+            registros = json.load(arquivo)
+            if not isinstance(registros, list):
+                registros = []
+    except (json.JSONDecodeError, IOError):
+        registros = []
 
 while True:
-      print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
+    print('>>>> Seja bem vindo(a) ao Calculo de FTY <<<<')
 
-      try:  # utilizei o Try e o Except para que meu programa não quebre caso dê um erro, nesse caso de "ValueError"
-            print('PASSO A PASSO 1...Responda o dia com >>> Segunda, Terça, Quarta, Quinta ou Sexta.')
+    try:  # O try protege contra entradas inválidas
+        print('PASSO A PASSO 1...Responda o dia com >>> Segunda, Terça, Quarta, Quinta ou Sexta.')
 
-            dia_d = input('Que dia é hoje: ')  # aqui foi feito o input para a capitalização de dados para o calculo.
-            if dia_d == '':
-                  print('campo vazio, por favor digite algo!!!')
-                  continue
-
-            workday = input('Qual é seu workday: ')  # aqui foi feito o input para a capitalização de dados para o calculo.
-            if workday.isdigit() and len(workday) == 6:  # converte para inteiro só depois da validação
-                  workday = int(workday)
-            else:
-                  print('digite o número do workday corretamente, ele deve conter 6 digitos.')
-                  continue
-
-            linha = input('Qual é a linha do backend deseja: ').capitalize()  # aqui foi feito o input para a capitalização de dados para o calculo.
-            if linha not in allowed_lines:
-                  print('Responda como no " PASSO A PASSO 3 "')
-                  continue
-
-            Prime_fail = int(input(f'Digite o total prime fail da linha ({linha}): '))
-            Prime_Handle = int(input(f'Digite a estação do prime handle que foi mais ultilizada, da linha ({linha}): '))
-
-            if Prime_Handle == 0:
-                  print("Prime Handle não pode ser zero.")
-                  continue
-
-            firsttimeyield = (1 - (Prime_fail / Prime_Handle)) * 100
-            print(f'O seu FTY é: {firsttimeyield:.2f}')
-
-      except ValueError as erro:
-            print('Erro de valor:', erro)
+        dia_d = input('Que dia é hoje: ').strip()
+        if dia_d == '':
+            print('Campo vazio, por favor digite o dia!')
             continue
 
-      # Pergunta para sair após cálculo bem-sucedido
-      sair = input('deseja sair ? responda sim ou não: ').lower()
-      if sair in ('não', 'nao'):
-                        registro = {
-                        'dia_d': dia_d,
-                        'workday': workday,
-                        'linha': linha,
-                        'Prime_fail': Prime_fail,
-                        'Prime_Handle': Prime_Handle,
-                        'firsttimeyield': firsttimeyield
-                                  }
-                      registros.append(registro)
-            with open(caminho_completo, 'w', encoding='utf-8') as arquivo:
-              json.dump(dicionario, arquivo, indent=4, ensure_ascii=False)
-              continue
-           
+        workday = input('Qual é seu workday: ').strip()
+        if workday.isdigit() and len(workday) == 6:
+            workday = int(workday)
+        else:
+            print('Digite o número do workday corretamente, ele deve conter 6 dígitos.')
+            continue
 
-      
-      elif sair == 'sim':
-       dicionario.update({'dia_d': dia_d,
-                                       'workday': workday,
-                                       'linha': linha,
-                                       'Prime_fail': Prime_fail,
-                                       'Prime_Handle': Prime_Handle,
-                                       'firsttimeyield': firsttimeyield
-                              })  # o lista.update trasfere os resultados para um dicionario vázio chamado de dicionario.
-      with open(caminho_completo, 'w', encoding='utf-8') as arquivo:
-                  json.dump(dicionario, arquivo, indent=4)
+        linha = input('Qual é a linha do backend deseja: ').strip().capitalize()
+        if linha not in allowed_lines:
+            print('Responda como no PASSO A PASSO 3.')
+            continue
 
-      print(f'Até mais, volte sempre!! seus dados: {dicionario}')
-      break
+        Prime_fail = int(input(f'Digite o total prime fail da linha ({linha}): ').strip())
+        Prime_Handle = int(input(f'Digite a estação do prime handle que foi mais utilizada, da linha ({linha}): ').strip())
+
+        if Prime_Handle == 0:
+            print('Prime Handle não pode ser zero.')
+            continue
+
+        firsttimeyield = (1 - (Prime_fail / Prime_Handle)) * 100
+        print(f'O seu FTY é: {firsttimeyield:.2f}')
+
+    except ValueError as erro:
+        print('Erro de valor:', erro)
+        continue
+
+    registro = {
+        'dia_d': dia_d,
+        'workday': workday,
+        'linha': linha,
+        'Prime_fail': Prime_fail,
+        'Prime_Handle': Prime_Handle,
+        'firsttimeyield': firsttimeyield,
+    }
+    registros.append(registro)
+
+    try:
+        with open(caminho_completo, 'w', encoding='utf-8') as arquivo:
+            json.dump(registros, arquivo, indent=4, ensure_ascii=False)
+    except IOError as erro:
+        print('Não foi possível salvar o arquivo:', erro)
+
+    sair = input('Deseja sair? Responda sim ou não: ').strip().lower()
+    if sair in ('sim',):
+        print(f'Até mais, volte sempre!! Seus dados: {registros}')
+        break
+    elif sair in ('não', 'nao'):
+        continue
+    else:
+        print('Resposta inválida. Voltando para o início.')
+        continue
